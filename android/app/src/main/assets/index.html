@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Night Extreme Racing</title>
+  <meta name="description" content="Night Extreme Racing — neon night-city top-down racer. Championship, challenge, and practice modes."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- LANDING / MENU SCREEN -->
+  <div id="menuScreen" class="screen landing-screen active">
+    <div class="landing-bg"></div>
+
+    <header class="landing-header">
+      <div class="landing-header-left">
+        <span class="landing-mini-logo">N</span>
+        <span class="landing-header-brand">Night Extreme Racing</span>
+      </div>
+      <h1 class="landing-header-title">Night Extreme Racing</h1>
+      <div class="landing-header-right">
+        <span class="landing-stat coins-stat"><span class="stat-icon">🪙</span><span id="coinDisplay">3,000,000</span></span>
+        <span class="landing-stat"><span class="stat-icon">🏆</span><span id="statWins">0</span></span>
+        <button class="landing-menu-icon" type="button" onclick="showSettings()" aria-label="Settings">☰</button>
+      </div>
+    </header>
+
+    <main class="landing-main">
+      <section class="landing-hero">
+        <div class="hero-logo-block">
+          <div class="logo-watermark" aria-hidden="true">N</div>
+          <h2 class="logo-night">NIGHT</h2>
+          <div class="logo-stack">
+            <span class="logo-extreme">EXTREME</span>
+            <span class="logo-racing">RACING</span>
+          </div>
+        </div>
+        <div class="hero-car-scene" aria-hidden="true">
+          <div class="hero-floor-glow"></div>
+          <div class="hero-car-wrap">
+            <svg class="hero-car" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="heroBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#9b6bff"/>
+                  <stop offset="45%" stop-color="#6a3dff"/>
+                  <stop offset="100%" stop-color="#2a1888"/>
+                </linearGradient>
+                <linearGradient id="heroGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(210,235,255,0.95)"/>
+                  <stop offset="100%" stop-color="rgba(35,50,80,0.92)"/>
+                </linearGradient>
+                <filter id="heroGlow"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <ellipse cx="260" cy="182" rx="210" ry="12" fill="rgba(0,0,0,0.55)"/>
+              <ellipse cx="115" cy="148" rx="34" ry="34" fill="#0a0a0a" stroke="#333" stroke-width="3"/>
+              <ellipse cx="115" cy="148" rx="18" ry="18" fill="#555"/>
+              <rect x="108" y="142" width="8" height="14" fill="#ffd700" rx="1"/>
+              <ellipse cx="400" cy="150" rx="36" ry="36" fill="#0a0a0a" stroke="#333" stroke-width="3"/>
+              <ellipse cx="400" cy="150" rx="19" ry="19" fill="#555"/>
+              <rect x="393" y="144" width="9" height="15" fill="#ffd700" rx="1"/>
+              <path d="M45 128 L75 92 L130 78 L380 72 L465 88 L478 118 L458 132 L140 138 L58 132 Z" fill="url(#heroBody)" stroke="rgba(0,0,0,0.35)" stroke-width="1"/>
+              <path d="M45 128 L62 108 L78 118 Z" fill="#ffd700"/>
+              <rect x="155" y="86" width="28" height="8" rx="2" fill="rgba(0,0,0,0.35)"/>
+              <rect x="190" y="84" width="28" height="8" rx="2" fill="rgba(0,0,0,0.35)"/>
+              <path d="M195 82 L220 62 L340 58 L385 72 L368 98 L240 102 L200 96 Z" fill="url(#heroGlass)" stroke="#bf00ff" stroke-width="0.8"/>
+              <rect x="448" y="58" width="42" height="6" rx="2" fill="#111" stroke="#ffd700" stroke-width="0.6"/>
+              <path d="M458 72 L495 64 L500 78 L465 86 Z" fill="#0a0a12"/>
+              <ellipse cx="472" cy="108" rx="12" ry="6" fill="#fff" filter="url(#heroGlow)"/>
+              <ellipse cx="472" cy="108" rx="6" ry="3" fill="#e8d4ff"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <nav class="landing-tiles" aria-label="Main menu">
+        <button type="button" class="landing-tile tile-championship" onclick="openTrackSelect('championship')">
+          <span class="tile-bg-icon">🏆</span>
+          <span class="tile-title">Championship</span>
+          <span class="tile-medals">
+            <span>🥇 <em id="medalGold">0</em></span>
+            <span>🥈 <em id="medalSilver">0</em></span>
+            <span>🥉 <em id="medalBronze">0</em></span>
+          </span>
+        </button>
+        <button type="button" class="landing-tile tile-challenge" onclick="openTrackSelect('challenge')">
+          <span class="tile-bg-car"></span>
+          <span class="tile-title">Challenge</span>
+        </button>
+        <button type="button" class="landing-tile tile-practice" onclick="openTrackSelect('practice')">
+          <span class="tile-bg-track"></span>
+          <span class="tile-title">Practice</span>
+        </button>
+        <button type="button" class="landing-tile tile-garage" onclick="showGarage()">
+          <span class="tile-bg-garage"></span>
+          <span class="tile-title">Garage</span>
+        </button>
+        <button type="button" class="landing-tile tile-options" onclick="showSettings()">
+          <span class="tile-title">Options</span>
+        </button>
+        <button type="button" class="landing-tile tile-howto" onclick="showHowTo()">
+          <span class="tile-title">How to Play</span>
+        </button>
+      </nav>
+    </main>
+
+    <footer class="landing-footer">
+      <span class="landing-studio">NIGHT CITY RACING</span>
+      <span class="landing-version">v1.0</span>
+    </footer>
+  </div>
+
+  <!-- GARAGE SCREEN -->
+  <div id="garageScreen" class="screen garage-screen hidden">
+    <div class="garage-bg"></div>
+    <header class="garage-header">
+      <button type="button" class="garage-back-btn" onclick="closeGarage()">◀ BACK</button>
+      <h2 class="garage-title">GARAGE</h2>
+      <div class="garage-coins"><span class="coin-icon">🪙</span><span id="garageCoinDisplay">3,000,000</span></div>
+    </header>
+
+    <div class="garage-player-tabs">
+      <button type="button" class="garage-tab active" id="tabP1" onclick="setGaragePlayer(1)">P1 CAR</button>
+      <button type="button" class="garage-tab" id="tabP2" onclick="setGaragePlayer(2)">P2 CAR</button>
+    </div>
+
+    <div class="garage-body">
+      <aside class="garage-stats">
+        <div class="stat-row-g"><span>TOP SPEED</span><div class="stat-bar"><div class="stat-fill" id="statTop"></div></div></div>
+        <div class="stat-row-g"><span>ACCELERATION</span><div class="stat-bar"><div class="stat-fill" id="statAccel"></div></div></div>
+        <div class="stat-row-g"><span>HANDLING</span><div class="stat-bar"><div class="stat-fill" id="statHandle"></div></div></div>
+        <div class="stat-row-g"><span>BRAKE</span><div class="stat-bar"><div class="stat-fill" id="statBrake"></div></div></div>
+      </aside>
+
+      <div class="garage-showcase">
+        <div class="garage-platform"></div>
+        <div class="garage-car-stage" id="garageCarPreview"></div>
+        <h3 class="garage-car-name" id="garageCarName">Hyper Violet</h3>
+      </div>
+
+      <div class="garage-buy-wrap">
+        <button type="button" class="garage-buy-btn" id="garageBuyBtn" onclick="buySelectedCar()">
+          <span class="buy-label" id="garageBuyLabel">BUY</span>
+          <span class="buy-price" id="garageBuyPrice">🪙 111,000</span>
+        </button>
+        <button type="button" class="garage-equip-btn hidden" id="garageEquipBtn" onclick="equipSelectedCar()">EQUIP</button>
+        <button type="button" class="garage-track-btn" onclick="openTrackSelectFromGarage()">🗺 SELECT TRACK →</button>
+      </div>
+    </div>
+
+    <div class="garage-carousel-wrap">
+      <div class="garage-carousel" id="garageCarousel"></div>
+    </div>
+  </div>
+
+  <!-- TRACK / MAP SELECT SCREEN -->
+  <div id="trackScreen" class="screen track-screen hidden">
+    <div class="track-bg"></div>
+    <header class="track-header">
+      <button type="button" class="track-back-btn" onclick="closeTrackSelect()">◀ BACK</button>
+      <h2 class="track-title" id="trackScreenTitle">CHALLENGE</h2>
+      <div class="track-coins"><span>🪙</span><span id="trackCoinDisplay">3,000,000</span></div>
+    </header>
+
+    <div class="track-layout">
+      <div class="track-locations">
+        <button type="button" class="track-nav-btn" onclick="cycleTrack(-1)" aria-label="Previous track">▲</button>
+        <ul class="track-list" id="trackList"></ul>
+        <button type="button" class="track-nav-btn" onclick="cycleTrack(1)" aria-label="Next track">▼</button>
+      </div>
+
+      <div class="track-map-area">
+        <div class="track-map-frame">
+          <span class="track-map-laps-badge">3 LAPS</span>
+          <svg class="track-map-svg" id="trackMapPreview" viewBox="0 0 220 220"></svg>
+        </div>
+        <p class="track-hint">Neon circuit preview — beat <strong id="infoAICount">5 AI</strong> rivals to the finish!</p>
+      </div>
+
+      <aside class="track-race-info">
+        <h3>RACE INFO</h3>
+        <div class="track-info-row"><span>RACE NUMBER</span><strong id="infoRaceNum">1</strong></div>
+        <div class="track-info-row"><span>TOTAL LAPS</span><strong id="infoLaps">3</strong></div>
+        <div class="track-info-row"><span>RACE TYPE</span><strong id="infoType">Circuit</strong></div>
+        <div class="track-info-row"><span>REWARD</span><strong id="infoReward">🪙 3,500</strong></div>
+        <div class="track-info-row cars-row"><span>CARS</span><strong id="infoCars">P1 + P2</strong></div>
+      </aside>
+    </div>
+
+    <footer class="track-footer">
+      <div class="track-best">Best Lap: <strong id="trackBestLap">--:--</strong></div>
+      <button type="button" class="track-race-btn" onclick="launchRace()">🏁 RACE NOW</button>
+    </footer>
+  </div>
+
+  <!-- HOW TO PLAY MODAL -->
+  <div id="howToModal" class="modal hidden">
+    <div class="modal-box">
+      <h3 class="modal-title">HOW TO PLAY</h3>
+      <div class="how-grid">
+        <div class="how-item"><span class="key-combo">W / ↑</span><span>Accelerate</span></div>
+        <div class="how-item"><span class="key-combo">S / ↓</span><span>Brake / Reverse</span></div>
+        <div class="how-item"><span class="key-combo">A / ←</span><span>Steer Left</span></div>
+        <div class="how-item"><span class="key-combo">D / →</span><span>Steer Right</span></div>
+        <div class="how-item"><span class="key-combo">SPACE</span><span>P1 Nitro Boost 🔥</span></div>
+        <div class="how-item"><span class="key-combo">↑ ↓ ← →</span><span>Player 2 Drive</span></div>
+        <div class="how-item"><span class="key-combo">SHIFT</span><span>P2 Nitro Boost</span></div>
+        <div class="how-item"><span class="key-combo">ESC / P</span><span>Pause Game</span></div>
+      </div>
+      <p class="how-desc">Split-screen for 2 players! Race <strong>3 laps</strong> against each other and <span class="neon-orange">AI supercars</span>. Collect nitro pickups. Stay on the road — off-road slows you down!</p>
+      <button class="menu-btn primary" onclick="closeHowTo()">GOT IT!</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-box">
+      <h3 class="modal-title">SETTINGS</h3>
+      <div class="setting-row">
+        <label>Sound Effects</label>
+        <label class="toggle"><input type="checkbox" id="sfxToggle" checked/><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <label>Music</label>
+        <label class="toggle"><input type="checkbox" id="musicToggle" checked/><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <label>Difficulty</label>
+        <select id="difficultySelect" class="select-input">
+          <option value="easy">Easy</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label>Car Color</label>
+        <div class="color-picks">
+          <div class="color-pick orange active" data-color="orange" onclick="selectColor(this,'orange')"></div>
+          <div class="color-pick cyan" data-color="cyan" onclick="selectColor(this,'cyan')"></div>
+          <div class="color-pick green" data-color="green" onclick="selectColor(this,'green')"></div>
+          <div class="color-pick purple" data-color="purple" onclick="selectColor(this,'purple')"></div>
+        </div>
+      </div>
+      <button class="menu-btn primary" onclick="closeSettings()">SAVE & CLOSE</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN — SPLIT SCREEN 2 PLAYER -->
+  <div id="gameScreen" class="screen split-race-screen hidden">
+    <canvas id="gameCanvas"></canvas>
+    <div class="split-divider" aria-hidden="true"></div>
+
+    <header class="race-top-bar">
+      <span class="race-top-title">Night Extreme Racing</span>
+      <div class="race-top-center">
+        <span class="race-timer" id="lapTimer">00:00.000</span>
+        <span class="race-best" id="bestLap">Best: --:--</span>
+      </div>
+      <button class="pause-btn race-pause-btn" id="pauseBtn" type="button" onclick="togglePause()" aria-label="Pause">⏸</button>
+    </header>
+
+    <!-- Player 1 — left half -->
+    <div class="split-panel split-panel-p1">
+      <div class="split-info-box">
+        <span class="split-lap">Lap: <strong id="lapDisplayP1">1/3</strong></span>
+        <span class="split-pos pos-p1">Pos: <strong id="posDisplayP1">1/2</strong></span>
+      </div>
+      <div class="speedo-wrap speedo-p1" id="speedHudP1">
+        <div class="speedo-panel">
+          <span class="speedo-label">SPEED</span>
+          <svg class="speedo-svg" viewBox="0 0 200 130" aria-hidden="true">
+            <defs>
+              <linearGradient id="speedGradP1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00f5ff"/>
+                <stop offset="50%" stop-color="#39ff14"/>
+                <stop offset="100%" stop-color="#ff6a00"/>
+              </linearGradient>
+              <filter id="speedGlowP1"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="speedo-outer-ring" d="M 18 112 A 82 82 0 1 1 182 112" />
+            <g class="speedo-ticks" stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+              <line x1="28" y1="108" x2="34" y2="102"/><line x1="100" y1="28" x2="100" y2="36"/>
+              <line x1="172" y1="108" x2="166" y2="102"/><line x1="52" y1="42" x2="56" y2="48"/>
+              <line x1="148" y1="42" x2="144" y2="48"/>
+            </g>
+            <text class="speedo-tick-num" x="22" y="118">0</text>
+            <text class="speedo-tick-num" x="92" y="22">150</text>
+            <text class="speedo-tick-num" x="168" y="118">300</text>
+            <path class="speedo-ring-bg" d="M 25 110 A 75 75 0 1 1 175 110" />
+            <path class="speedo-ring-fill" id="speedoArcP1" d="M 25 110 A 75 75 0 1 1 175 110" filter="url(#speedGlowP1)"/>
+            <text class="speedo-nitro-label" x="100" y="124">⚡ NITRO</text>
+            <path class="speedo-nitro-bg" d="M 40 108 A 60 60 0 1 1 160 108" />
+            <path class="speedo-nitro-fill" id="speedoNitroP1" d="M 40 108 A 60 60 0 1 1 160 108" />
+          </svg>
+          <div class="speedo-readout">
+            <span class="speedo-gear" id="gearP1">1</span>
+            <span class="speedo-speed" id="speedDisplayP1">0</span>
+            <span class="speedo-unit">KM/H</span>
+            <span class="speedo-rpm" id="rpmP1">0 RPM</span>
+          </div>
+        </div>
+      </div>
+      <span class="split-player-tag p1-tag">P1 · WASD + SPACE</span>
+    </div>
+
+    <!-- Player 2 — right half -->
+    <div class="split-panel split-panel-p2">
+      <div class="split-info-box">
+        <span class="split-lap">Lap: <strong id="lapDisplayP2">1/3</strong></span>
+        <span class="split-pos pos-p2">Pos: <strong id="posDisplayP2">2/2</strong></span>
+      </div>
+      <div class="speedo-wrap speedo-p2" id="speedHudP2">
+        <div class="speedo-panel speedo-panel-p2">
+          <span class="speedo-label">SPEED</span>
+          <svg class="speedo-svg" viewBox="0 0 200 130" aria-hidden="true">
+            <defs>
+              <linearGradient id="speedGradP2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ff6a00"/>
+                <stop offset="50%" stop-color="#ff3355"/>
+                <stop offset="100%" stop-color="#ffcc00"/>
+              </linearGradient>
+              <filter id="speedGlowP2"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="speedo-outer-ring" d="M 18 112 A 82 82 0 1 1 182 112" />
+            <g class="speedo-ticks" stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+              <line x1="28" y1="108" x2="34" y2="102"/><line x1="100" y1="28" x2="100" y2="36"/>
+              <line x1="172" y1="108" x2="166" y2="102"/><line x1="52" y1="42" x2="56" y2="48"/>
+              <line x1="148" y1="42" x2="144" y2="48"/>
+            </g>
+            <text class="speedo-tick-num" x="22" y="118">0</text>
+            <text class="speedo-tick-num" x="92" y="22">150</text>
+            <text class="speedo-tick-num" x="168" y="118">300</text>
+            <path class="speedo-ring-bg" d="M 25 110 A 75 75 0 1 1 175 110" />
+            <path class="speedo-ring-fill" id="speedoArcP2" d="M 25 110 A 75 75 0 1 1 175 110" filter="url(#speedGlowP2)"/>
+            <text class="speedo-nitro-label" x="100" y="124">⚡ NITRO</text>
+            <path class="speedo-nitro-bg" d="M 40 108 A 60 60 0 1 1 160 108" />
+            <path class="speedo-nitro-fill" id="speedoNitroP2" d="M 40 108 A 60 60 0 1 1 160 108" />
+          </svg>
+          <div class="speedo-readout">
+            <span class="speedo-gear" id="gearP2">1</span>
+            <span class="speedo-speed" id="speedDisplayP2">0</span>
+            <span class="speedo-unit">KM/H</span>
+            <span class="speedo-rpm" id="rpmP2">0 RPM</span>
+          </div>
+        </div>
+      </div>
+      <span class="split-player-tag p2-tag">P2 · ARROWS + SHIFT</span>
+    </div>
+
+    <!-- MOBILE CONTROLS -->
+    <div id="mobileControls">
+      <div class="mobile-left">
+        <button class="mobile-btn" id="btnLeft" ontouchstart="keys.left=true" ontouchend="keys.left=false">◀</button>
+        <button class="mobile-btn" id="btnRight" ontouchstart="keys.right=true" ontouchend="keys.right=false">▶</button>
+      </div>
+      <div class="mobile-center">
+        <button class="mobile-btn nitro-btn" id="btnNitro" ontouchstart="keys.nitro=true" ontouchend="keys.nitro=false">⚡ NITRO</button>
+      </div>
+      <div class="mobile-right">
+        <button class="mobile-btn accel-btn" id="btnAccel" ontouchstart="keys.up=true" ontouchend="keys.up=false">▲</button>
+        <button class="mobile-btn brake-btn" id="btnBrake" ontouchstart="keys.down=true" ontouchend="keys.down=false">▼</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAUSE SCREEN -->
+  <div id="pauseScreen" class="screen hidden">
+    <div class="pause-content">
+      <h2 class="pause-title">PAUSED</h2>
+      <div class="pause-buttons">
+        <button class="menu-btn primary" onclick="togglePause()">▶ RESUME</button>
+        <button class="menu-btn" onclick="restartRace()">↺ RESTART</button>
+        <button class="menu-btn" onclick="goToMenu()">⌂ MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINISH SCREEN -->
+  <div id="finishScreen" class="screen hidden">
+    <div class="finish-content">
+      <div id="finishRank" class="finish-rank">1st</div>
+      <h2 id="finishTitle" class="finish-title">RACE COMPLETE!</h2>
+      <div class="finish-stats">
+        <div class="stat-row"><span>Total Time</span><span id="finishTime">--:--</span></div>
+        <div class="stat-row"><span>Best Lap</span><span id="finishBestLap">--:--</span></div>
+        <div class="stat-row"><span>Top Speed</span><span id="finishTopSpeed">0 km/h</span></div>
+        <div class="stat-row"><span>Nitro Used</span><span id="finishNitro">0</span></div>
+      </div>
+      <div class="finish-buttons">
+        <button class="menu-btn primary" onclick="restartRace()">↺ RACE AGAIN</button>
+        <button class="menu-btn" onclick="goToMenu()">⌂ MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

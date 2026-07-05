@@ -1,0 +1,206 @@
+/* ═══ ULTRA 2D — global flat art style ═══ */
+body.ultra-2d {
+  --u2d-outline: #0d0d18;
+  --u2d-shadow: 4px 4px 0 var(--u2d-outline);
+  --u2d-panel: #1a1a2e;
+  --u2d-accent: #00e5ff;
+  --u2d-hot: #ff3366;
+}
+
+body.ultra-2d .landing-bg,
+body.ultra-2d .garage-bg,
+body.ultra-2d .track-bg {
+  filter: none;
+  background: #1a2a4a !important;
+}
+body.ultra-2d .landing-bg::before,
+body.ultra-2d .landing-bg::after,
+body.ultra-2d .garage-bg::after {
+  display: none;
+}
+
+/* Flat 2D hero car — no 3D perspective */
+body.ultra-2d .hero-car-scene {
+  perspective: none;
+  max-width: 580px;
+}
+body.ultra-2d .hero-floor-glow { display: none; }
+body.ultra-2d .hero-car-wrap {
+  transform: none;
+  filter: drop-shadow(6px 8px 0 var(--u2d-outline));
+  animation: carFloat2d 3s ease-in-out infinite alternate;
+}
+@keyframes carFloat2d {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-8px); }
+}
+body.ultra-2d .hero-car { transform: none; }
+
+/* Hard-edge UI panels */
+body.ultra-2d .landing-tile,
+body.ultra-2d .hud-box,
+body.ultra-2d .split-info-box,
+body.ultra-2d .garage-car-slot,
+body.ultra-2d .modal-box {
+  border-radius: 0 !important;
+  box-shadow: var(--u2d-shadow) !important;
+  border: 3px solid var(--u2d-outline) !important;
+  backdrop-filter: none !important;
+}
+body.ultra-2d .landing-tile:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--u2d-outline) !important;
+}
+
+body.ultra-2d .landing-header,
+body.ultra-2d .garage-header,
+body.ultra-2d .track-header,
+body.ultra-2d .race-top-bar {
+  border-bottom: 3px solid var(--u2d-outline);
+  background: var(--u2d-panel) !important;
+}
+
+body.ultra-2d .logo-night,
+body.ultra-2d .garage-title,
+body.ultra-2d .track-title {
+  text-shadow: 3px 3px 0 var(--u2d-outline);
+  -webkit-text-stroke: 0;
+}
+
+/* Flat 2D speedometers */
+body.ultra-2d .speedo-panel {
+  border-radius: 0 !important;
+  border: 3px solid var(--u2d-outline) !important;
+  box-shadow: var(--u2d-shadow) !important;
+  background: var(--u2d-panel) !important;
+  animation: none !important;
+}
+body.ultra-2d .speedo-svg { display: none; }
+body.ultra-2d .speedo-readout {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 4px 12px;
+  padding: 12px 16px;
+  width: 100%;
+}
+body.ultra-2d .speedo-panel .speedo-gear {
+  position: static;
+  grid-row: 1 / 3;
+  font-size: 48px;
+  align-self: center;
+}
+body.ultra-2d .speedo-speed {
+  font-size: 40px;
+  text-shadow: 2px 2px 0 var(--u2d-outline);
+}
+body.ultra-2d .speedo-unit { grid-column: 2; }
+body.ultra-2d .speedo-rpm { grid-column: 2; }
+
+body.ultra-2d .speedo-flat-bar {
+  display: block;
+  grid-column: 1 / -1;
+  height: 12px;
+  background: #0d0d18;
+  border: 2px solid var(--u2d-outline);
+  margin-top: 6px;
+}
+body.ultra-2d .speedo-flat-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00e5ff, #39ff14, #ffcc00, #ff3366);
+  transition: width 0.1s;
+}
+body.ultra-2d .speedo-panel-p2 .speedo-flat-fill {
+  background: linear-gradient(90deg, #ff6a00, #ff3366, #ffcc00);
+}
+body.ultra-2d .speedo-flat-nitro {
+  height: 6px;
+  margin-top: 4px;
+  background: #0d0d18;
+  border: 2px solid var(--u2d-outline);
+}
+body.ultra-2d .speedo-flat-nitro-fill {
+  height: 100%;
+  width: 100%;
+  background: #ffcc00;
+}
+
+body.ultra-2d #gameCanvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: none !important;
+}
+
+body.ultra-2d .track-race-btn,
+body.ultra-2d .garage-buy-btn,
+body.ultra-2d .menu-btn.primary {
+  border-radius: 0 !important;
+  border: 3px solid var(--u2d-outline) !important;
+  box-shadow: var(--u2d-shadow) !important;
+}
+
+body.ultra-2d .split-divider {
+  width: 6px;
+  margin-left: -3px;
+  background: var(--u2d-outline);
+  box-shadow: none;
+}
+
+body.ultra-2d {
+  background: #0d0d18;
+}
+
+body.ultra-2d .landing-tile .tile-bg-icon,
+body.ultra-2d .landing-tile .tile-bg-car {
+  opacity: 0.25;
+  filter: none;
+}
+
+body.ultra-2d .logo-extreme,
+body.ultra-2d .logo-racing {
+  text-shadow: 3px 3px 0 var(--u2d-outline);
+}
+
+body.ultra-2d .garage-car-slot svg {
+  filter: none;
+}
+
+body.ultra-2d .track-map-preview,
+body.ultra-2d .track-card {
+  border-radius: 0 !important;
+  border: 3px solid var(--u2d-outline) !important;
+  box-shadow: var(--u2d-shadow) !important;
+}
+
+body.ultra-2d #pauseScreen,
+body.ultra-2d #finishScreen {
+  backdrop-filter: none !important;
+  background: rgba(13, 13, 24, 0.92) !important;
+}
+
+body.ultra-2d .pause-box,
+body.ultra-2d .finish-box {
+  border-radius: 0 !important;
+  border: 4px solid var(--u2d-outline) !important;
+  box-shadow: 8px 8px 0 var(--u2d-outline) !important;
+  background: var(--u2d-panel) !important;
+}
+
+body.ultra-2d .split-player-tag {
+  border: 2px solid var(--u2d-outline);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--u2d-outline);
+  text-shadow: 1px 1px 0 var(--u2d-outline);
+}
+
+body.ultra-2d .coins-stat,
+body.ultra-2d .garage-coins {
+  border: 2px solid var(--u2d-outline);
+  box-shadow: 3px 3px 0 var(--u2d-outline);
+  border-radius: 0;
+}
